@@ -1,0 +1,270 @@
+// Logical properties (inline-start/end) so the layout is correct in RTL without mirrored overrides.
+:host {
+  --c-text: #1b1f24;
+  --c-muted: #4a5360;
+  --c-border: #d6dbe1;
+  --c-surface: #ffffff;
+  --c-page: #f4f6f8;
+  --c-primary: #0b4f9c;
+  --c-primary-hover: #083c77;
+  --c-action-bg: #fff4e0;
+  --c-action-fg: #7a4100;
+  --c-action-edge: #d97a00;
+  --c-default-bg: #e8f1fb;
+  --c-default-edge: #5b8fd0;
+  --c-overdue-bg: #fde8e8;
+  --c-overdue-fg: #9b1c1c;
+  --c-focus: #ffbf47;
+
+  display: block;
+  color: var(--c-text);
+}
+
+.my-requests {
+  max-inline-size: 960px;
+  margin-inline: auto;
+  padding: 1rem;
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-block-end: 1rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__summary {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+
+  &__status,
+  &__empty {
+    padding: 1.5rem;
+    text-align: center;
+    background: linear-gradient(to left, var(--c-default-bg), var(--c-surface) 40%);
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+    color: var(--c-muted);
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  &__error {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(to left, var(--c-overdue-bg), var(--c-surface) 40%);
+    color: var(--c-overdue-fg);
+    border: 1px solid currentColor;
+    border-radius: 8px;
+
+    p {
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+}
+
+.request-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  // 1 column on phones, 2 when there is room.
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+}
+
+.request-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  block-size: 100%;
+  box-sizing: border-box;
+  padding: 1rem 1.25rem;
+  // One tinted-start style for all cards; state only swaps the colour pair.
+  --card-tint: var(--c-default-bg);
+  --card-edge: var(--c-default-edge);
+  border: 1px solid var(--c-border);
+  border-inline-start: 6px solid var(--card-edge);
+  background: linear-gradient(to left, var(--card-tint), var(--c-surface) 40%);
+  border-radius: 8px;
+
+  &--overdue {
+    --card-tint: var(--c-overdue-bg);
+    --card-edge: var(--c-overdue-fg);
+  }
+
+  // Action-required wins visually.
+  &--action {
+    --card-tint: var(--c-action-bg);
+    --card-edge: var(--c-action-edge);
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  &__authority {
+    margin: 0.25rem 0 0;
+    color: var(--c-muted);
+  }
+
+  &__flags {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__details {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem 1rem;
+
+    dt {
+      font-size: 0.85rem;
+      color: var(--c-muted);
+    }
+
+    dd {
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  &__cta {
+    align-self: flex-start;
+    margin-block-start: auto;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  &--action {
+    background: var(--c-action-bg);
+    color: var(--c-action-fg);
+    border: 1px solid var(--c-action-edge);
+
+    .badge__icon {
+      background: var(--c-action-fg);
+    }
+  }
+
+  &--overdue {
+    background: var(--c-overdue-bg);
+    color: var(--c-overdue-fg);
+    border: 1px solid var(--c-overdue-fg);
+
+    .badge__icon {
+      background: var(--c-overdue-fg);
+    }
+  }
+
+  // Icon sits in a solid circle so it reads as a status symbol, not as stray punctuation before the Hebrew text.
+  &__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    border-radius: 50%;
+
+    svg {
+      inline-size: 100%;
+      block-size: 100%;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+
+      circle {
+        fill: #fff;
+        stroke-width: 1.5;
+      }
+    }
+  }
+}
+
+.button {
+  display: inline-block;
+  min-block-size: 44px; // touch target
+  padding: 0.6rem 1.25rem;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+
+  &--primary {
+    background: var(--c-primary);
+    color: #fff;
+    border: 2px solid var(--c-primary);
+
+    &:hover {
+      background: var(--c-primary-hover);
+    }
+  }
+
+  &--secondary {
+    background: var(--c-surface);
+    color: var(--c-overdue-fg);
+    border: 2px solid currentColor;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--c-focus);
+    outline-offset: 2px;
+  }
+}
+
+.spinner {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  border: 3px solid var(--c-border);
+  border-block-start-color: var(--c-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}

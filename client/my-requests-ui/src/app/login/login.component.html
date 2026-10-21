@@ -1,0 +1,16 @@
+<section class="login" dir="rtl" aria-labelledby="login-title">
+  <div class="eyebrow">האזור האישי</div>
+  <h1 id="login-title">התחברות</h1>
+  <p>יש להתחבר כדי לצפות בבקשות שלך מכל הרשויות.</p>
+  <form [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="busy()">
+    <label for="username">שם משתמש</label>
+    <input id="username" formControlName="username" autocomplete="username" maxlength="100" required
+      [attr.aria-invalid]="form.controls.username.touched && form.controls.username.invalid" />
+    <label for="password">סיסמה</label>
+    <input id="password" type="password" formControlName="password" autocomplete="current-password"
+      maxlength="1024" required [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid" />
+    @if (form.touched && form.invalid) { <p class="error" role="alert">יש למלא שם משתמש וסיסמה.</p> }
+    @if (error()) { <p class="error" role="alert">{{ error() }}</p> }
+    <button type="submit" [disabled]="busy()">{{ busy() ? 'מתחבר…' : 'כניסה לאזור האישי' }}</button>
+  </form>
+</section>

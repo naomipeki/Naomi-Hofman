@@ -1,0 +1,110 @@
+<section class="my-requests" aria-labelledby="my-requests-title" [attr.aria-busy]="state().status === 'loading'">
+  <header class="my-requests__header">
+    <h2 id="my-requests-title">הבקשות שלי</h2>
+    @if (actionRequiredCount() > 0) {
+      <p class="my-requests__summary">
+        <span class="badge badge--action">{{ actionRequiredCount() }}</span>
+        {{ actionRequiredCount() === 1 ? 'בקשה אחת דורשת' : 'בקשות דורשות' }} פעולה ממך
+      </p>
+    }
+  </header>
+
+  <!-- Polite live region: screen readers hear loading / empty without stealing focus. -->
+  <div aria-live="polite">
+    @if (state().status === 'loading') {
+      <p class="my-requests__status">
+        <span class="spinner" aria-hidden="true"></span>
+        טוען את הבקשות שלך…
+      </p>
+    }
+
+    @if (isEmpty()) {
+      <p class="my-requests__empty">עדיין לא הגשת בקשות</p>
+    }
+  </div>
+
+  @if (state().status === 'error') {
+    <div class="my-requests__error" role="alert">
+      <p>{{ errorMessage() }}</p>
+      @if (canRetry()) {
+        <button type="button" class="button button--secondary" (click)="retry()">נסו שוב</button>
+      }
+    </div>
+  }
+
+  @if (requests().length > 0) {
+    <ul class="request-list">
+      @for (request of requests(); track request.requestId) {
+        <li>
+          <article
+            class="request-card"
+            [class.request-card--action]="request.actionRequired"
+            [class.request-card--overdue]="request.isOverdue"
+            [attr.aria-labelledby]="'req-' + request.requestId"
+          >
+            <header class="request-card__header">
+              <h3 class="request-card__title" [id]="'req-' + request.requestId">{{ request.serviceName }}</h3>
+              <p class="request-card__authority">{{ request.authorityName }}</p>
+            </header>
+
+            <!-- Flags are text + icon, never color alone. -->
+            @if (request.actionRequired || request.isOverdue) {
+              <p class="request-card__flags">
+                @if (request.actionRequired) {
+                  <span class="badge badge--action">
+                    <span class="badge__icon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" focusable="false">
+                        <path d="M8 3.5v5.5" />
+                        <circle cx="8" cy="12.25" r="0.4" />
+                      </svg>
+                    </span>
+                    נדרשת פעולה
+                  </span>
+                }
+                @if (request.isOverdue) {
+                  <span class="badge badge--overdue">
+                    <span class="badge__icon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" focusable="false">
+                        <path d="M8 3.75V8l2.75 1.75" />
+                      </svg>
+                    </span>
+                    חריגה מזמן הטיפול
+                  </span>
+                }
+              </p>
+            }
+
+            <dl class="request-card__details">
+              <div>
+                <dt>סטטוס</dt>
+                <dd>{{ request.status }}</dd>
+              </div>
+              <div>
+                <dt>מספר בקשה</dt>
+                <dd dir="ltr">{{ request.requestId }}</dd>
+              </div>
+              <div>
+                <dt>הוגשה</dt>
+                <dd>{{ request.submittedAt }}</dd>
+              </div>
+              <div>
+                <dt>עדכון אחרון</dt>
+                <dd>{{ request.lastUpdate }}</dd>
+              </div>
+            </dl>
+
+            @if (request.actionRequired) {
+              <a
+                class="button button--primary request-card__cta"
+                [href]="actionUrl(request)"
+                [attr.aria-label]="'להשלמת הפעולה הנדרשת: ' + request.serviceName + ', ' + request.authorityName"
+              >
+                להשלמת הפעולה
+              </a>
+            }
+          </article>
+        </li>
+      }
+    </ul>
+  }
+</section>

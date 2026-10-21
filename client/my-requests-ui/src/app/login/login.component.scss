@@ -1,0 +1,13 @@
+:host { display: block; padding: 64px 20px; }
+.login { max-width: 400px; margin: auto; padding: 32px; background: white; border: 1px solid #dce3ea; border-radius: 16px; box-shadow: 0 8px 32px #182e4810; }
+.eyebrow { color: #315980; font-weight: 600; }
+h1 { margin: 8px 0; color: #18324c; font-size: 2rem; }
+p { color: #526373; margin: 0 0 24px; }
+form { display: flex; flex-direction: column; gap: 10px; }
+label { font-weight: 600; color: #24394d; }
+input { box-sizing: border-box; width: 100%; margin-bottom: 12px; padding: 12px; border: 1px solid #a5b4c2; border-radius: 8px; font: inherit; }
+input:focus-visible, button:focus-visible { outline: 3px solid #7cb9ee; outline-offset: 2px; }
+button { padding: 13px; border: 0; border-radius: 8px; background: #175a91; color: white; font: inherit; font-weight: 600; cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+.error { color: #a92222; margin: 0 0 8px; }
+@media (max-width: 480px) { :host { padding: 32px 16px; } .login { padding: 24px; } }
