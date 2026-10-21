@@ -1,0 +1,35 @@
+[
+  {
+    "formCode": "ARNONA_DISCOUNT",
+    "serviceName": "הנחה בארנונה",
+    "authorities": {
+      "6500": {
+        "authorityName": "עיריית חדרה",
+        "statusMap": { "1": "התקבלה", "2": "בטיפול", "3": "נדרשים מסמכים", "4": "אושרה", "5": "נדחתה" },
+        "actionRequiredStatuses": ["3"],
+        "finalStatuses": ["4", "5"],
+        "slaDays": 30
+      },
+      "7400": {
+        "authorityName": "עיריית נתניה",
+        "statusMap": { "10": "נקלטה", "20": "בבדיקה", "30": "ממתין להשלמת מסמכים", "40": "הטיפול הסתיים" },
+        "actionRequiredStatuses": ["30"],
+        "finalStatuses": ["40"],
+        "slaDays": 45
+      }
+    }
+  },
+  {
+    "formCode": "PARKING_PERMIT",
+    "serviceName": "תו חניה לתושב",
+    "authorities": {
+      "6500": {
+        "authorityName": "עיריית חדרה",
+        "statusMap": { "1": "התקבלה", "2": "בבדיקה", "3": "נדרש תשלום", "4": "הונפק", "5": "נדחתה" },
+        "actionRequiredStatuses": ["3"],
+        "finalStatuses": ["4", "5"],
+        "slaDays": 14
+      }
+    }
+  }
+]

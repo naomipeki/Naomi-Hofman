@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RA_MuniAnnouncements.Api/RA_MuniAnnouncements.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RA_MuniAnnouncements.Tests/RA_MuniAnnouncements.Tests.csproj" />
+  </Folder>
+</Solution>
