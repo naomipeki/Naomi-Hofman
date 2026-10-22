@@ -2,7 +2,7 @@
 
 Microservice for the Personal Area that gathers a resident's requests from **all** local authorities into one normalized view, and an Angular component that displays it.
 
-> The User Stories, grooming questions, Part B (work plan) and Part C (answers) are in the separate Word document submitted alongside this repository.
+> The User Stories, grooming questions, Part B (work plan) and Part C (answers) are in the Word document [Naomi Hofman.docx](Naomi%20Hofman.docx).
 >
 > API reference, file-by-file layout and flow diagrams: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
